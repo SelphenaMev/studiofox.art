@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudioFox.art | Mev's Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Special+Elite&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <nav>
+            <a href="#home" class="nav-link">Home</a>
+            <a href="#projects" class="nav-link">Projects</a>
+            <a href="#about" class="nav-link">About</a>
+            <a href="#contact" class="nav-link">Contact</a>
+        </nav>
+    </header>
+
+    <main>
+        <section id="home">
+            <div class="home-content">
+                <h1>Hello, Human</h1>
+                <p>"I’m Mev, a hobbyist developer, psychology student & full-time dreamer. I craft code with emotion and sketch pixels with poetry."</p>
+                <div class="home-buttons">
+                    <a href="#projects" class="btn">View Projects</a>
+                    <a href="https://github.com/Mev" class="btn" target="_blank">Read My Code Diary</a>
+                    <a href="#contact" class="btn">Cast a Spell</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects">
+            <h2>My Little Creations</h2>
+            <div class="project-gallery">
+                    <div class="project-card">
+                        <div class="project-image-placeholder">
+                            <h4>The Chaos Zodiac</h4>
+                            <p class="placeholder-emoji">✨🔮</p>
+                        </div>
+                        <div class="project-overlay">
+                            <h3>The Chaos Zodiac</h3>
+                            <p class="project-description">A whimsical horoscope that delivers beautifully bizarre predictions.</p>
+                            <div class="project-tags">
+                                <span>HTML</span>
+                                <span>CSS</span>
+                                <span>JS</span>
+                            </div>
+                            <a href="the_chaos_zodiac.html" class="btn" target="_blank">View Project</a>
+                        </div>
+                    </div>
+
+                    <div class="project-card">
+                        <div class="project-image-placeholder">
+                            <h4>Emotional Bestiary</h4>
+                            <p class="placeholder-emoji">🐉🐾</p>
+                        </div>
+                        <div class="project-overlay">
+                            <h3>Emotional Bestiary</h3>
+                            <p class="project-description">A symbolic, poetic pokedex of emotions.</p>
+                            <div class="project-tags">
+                                <span>HTML</span>
+                                <span>CSS</span>
+                                <span>JS</span>
+                            </div>
+                            <a href="emotional_bestiary.html" class="btn" target="_blank">View Project</a>
+                        </div>
+                    </div>
+                </div>
+        </section>
+
+        <section id="about">
+            <h2>Who codes behind the tail?</h2>
+            <div class="about-content">
+                <p>"I write code like I write poetry — with emotion, patience and just a little magic. I’m deeply in love with psychology, Fernando, and the art of making things that speak to the soul. I dream of building worlds, apps, and stories that feel alive."</p>
+                <div class="fun-facts">
+                    <h3>Fun Facts</h3>
+                    <ul>
+                        <li>My favorite bug fix was love ❤️</li>
+                        <li>I once coded until the sun rose (and the coffee died) ☕</li>
+                        <li>My IDE has themes that match my mood 🎨</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact">
+            <h2>Leave a Spell for Me</h2>
+            <form action="https://formspree.io/f/xzzveovy" method="POST">
+                <label for="name">Who are you in this realm?</label>
+                <input type="text" id="name" name="name" required>
+
+                <label for="message">What enchantment would you like to send?</label>
+                <textarea id="message" name="message" required></textarea>
+
+                <button type="submit" class="btn">Send Spell ✨</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <div id="patinho-message" class="patinho-message">
+            <p>🦊❤️🦆 Beloved, should fate dare tear us apart… I would raise every demon from the abyss to reunite our souls.</p>
+        </div>
+        <button id="patinho-mode-btn">Patinho Mode 🦆</button>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

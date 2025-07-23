@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Chaos Zodiac ✨</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Playfair+Display:wght@400;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Crimson Text', serif;
+            background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+            min-height: 100vh;
+            color: #fff;
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        /* Animated stars background */
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        .star {
+            position: absolute;
+            background: #fff;
+            border-radius: 50%;
+            animation: twinkle 3s infinite alternate;
+        }
+        
+        @keyframes twinkle {
+            0% { opacity: 0.3; transform: scale(1); }
+            100% { opacity: 1; transform: scale(1.2); }
+        }
+        
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            animation: fadeInUp 1s ease-out;
+        }
+        
+        .title {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, #ffd700, #ff6b6b, #4ecdc4, #45b7d1);
+            background-size: 400% 400%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradientShift 4s ease-in-out infinite;
+            margin-bottom: 10px;
+        }
+        
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            color: #b8b8d1;
+            font-style: italic;
+            margin-bottom: 30px;
+        }
+        
+        .form-container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 40px;
+            animation: fadeInUp 1s ease-out 0.3s both;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-group label {
+            display: block;
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+            color: #ffd700;
+            font-weight: 600;
+        }
+        
+        .select-container {
+            position: relative;
+        }
+        
+        select {
+            width: 100%;
+            padding: 15px 20px;
+            font-size: 1rem;
+            font-family: 'Crimson Text', serif;
+            background: rgba(255, 255, 255, 0.15);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 15px;
+            color: #fff;
+            appearance: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        select:focus {
+            outline: none;
+            border-color: #ffd700;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+        }
+        
+        select option {
+            background: #1a1a2e;
+            color: #fff;
+        }
+        
+        .select-container::after {
+            content: '✨';
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            pointer-events: none;
+            font-size: 1.2rem;
+        }
+        
+        .reveal-btn {
+            width: 100%;
+            padding: 18px;
+            font-size: 1.3rem;
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #ffd700);
+            background-size: 400% 400%;
+            border: none;
+            border-radius: 15px;
+            color: #fff;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            animation: gradientShift 4s ease-in-out infinite;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+        
+        .reveal-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+        }
+        
+        .reveal-btn:active {
+            transform: translateY(-1px);
+        }
+        
+        .prophecy-container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            min-height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+        
+        .prophecy-container.show {
+            opacity: 1;
+            transform: translateY(0);
+            animation: prophecyGlow 2s ease-in-out infinite alternate;
+        }
+        
+        @keyframes prophecyGlow {
+            0% { box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3), 0 0 30px rgba(255, 215, 0, 0.1); }
+            100% { box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3), 0 0 50px rgba(255, 215, 0, 0.3); }
+        }
+        
+        .prophecy-text {
+            font-size: 1.4rem;
+            line-height: 1.6;
+            color: #fff;
+            font-style: italic;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+        
+        .tagline {
+            text-align: center;
+            font-size: 1rem;
+            color: #b8b8d1;
+            font-style: italic;
+            margin-top: 30px;
+            animation: fadeInUp 1s ease-out 0.6s both;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .cosmic-emoji {
+            font-size: 2rem;
+            margin: 0 10px;
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        @media (max-width: 768px) {
+            .title {
+                font-size: 2.5rem;
+            }
+            
+            .form-container {
+                padding: 30px 20px;
+            }
+            
+            .prophecy-container {
+                padding: 30px 20px;
+            }
+            
+            .prophecy-text {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="stars" id="stars"></div>
+    
+    <div class="container">
+        <div class="header">
+            <h1 class="title">The Chaos Zodiac</h1>
+            <p class="subtitle">Where cosmic meets chaotic, and emotions paint the stars</p>
+        </div>
+        
+        <div class="form-container">
+            <div class="form-group">
+                <label for="zodiac">Choose Your Celestial Sign:</label>
+                <div class="select-container">
+                    <select id="zodiac">
+                        <option value="">Select your zodiac sign...</option>
+                        <option value="aries">♈ Aries (Mar 21 - Apr 19)</option>
+                        <option value="taurus">♉ Taurus (Apr 20 - May 20)</option>
+                        <option value="gemini">♊ Gemini (May 21 - Jun 20)</option>
+                        <option value="cancer">♋ Cancer (Jun 21 - Jul 22)</option>
+                        <option value="leo">♌ Leo (Jul 23 - Aug 22)</option>
+                        <option value="virgo">♍ Virgo (Aug 23 - Sep 22)</option>
+                        <option value="libra">♎ Libra (Sep 23 - Oct 22)</option>
+                        <option value="scorpio">♏ Scorpio (Oct 23 - Nov 21)</option>
+                        <option value="sagittarius">♐ Sagittarius (Nov 22 - Dec 21)</option>
+                        <option value="capricorn">♑ Capricorn (Dec 22 - Jan 19)</option>
+                        <option value="aquarius">♒ Aquarius (Jan 20 - Feb 18)</option>
+                        <option value="pisces">♓ Pisces (Feb 19 - Mar 20)</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="emotion">Current Emotional Frequency:</label>
+                <div class="select-container">
+                    <select id="emotion">
+                        <option value="">How are you feeling right now...</option>
+                        <option value="anxious">😰 Anxious</option>
+                        <option value="dreamy">🌙 Dreamy</option>
+                        <option value="chaotic">🌪️ Chaotic</option>
+                        <option value="tired">😴 Tired</option>
+                        <option value="in-love">💕 In Love</option>
+                        <option value="confused">🤔 Confused</option>
+                        <option value="excited">🎉 Excited</option>
+                        <option value="melancholic">🌧️ Melancholic</option>
+                        <option value="rebellious">🔥 Rebellious</option>
+                        <option value="peaceful">🕊️ Peaceful</option>
+                        <option value="caffeinated">☕ Overly Caffeinated</option>
+                        <option value="mystical">🔮 Mystical</option>
+                    </select>
+                </div>
+            </div>
+            
+            <button class="reveal-btn" onclick="revealProphecy()">
+                <span class="cosmic-emoji">🌟</span>
+                Reveal Your Prophecy
+                <span class="cosmic-emoji">🌟</span>
+            </button>
+        </div>
+        
+        <div class="prophecy-container" id="prophecyContainer">
+            <p class="prophecy-text" id="prophecyText">
+                The cosmic winds are waiting for your choices...
+            </p>
+        </div>
+        
+        <div class="tagline">
+            <em>"Because the universe isn't always logical. Sometimes it's just emotional and slightly caffeinated."</em>
+        </div>
+    </div>
+
+    <script>
+        // Create animated stars
+        function createStars() {
+            const starsContainer = document.getElementById('stars');
+            const numberOfStars = 100;
+            
+            for (let i = 0; i < numberOfStars; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.width = Math.random() * 3 + 1 + 'px';
+                star.style.height = star.style.width;
+                star.style.animationDelay = Math.random() * 3 + 's';
+                starsContainer.appendChild(star);
+            }
+        }
+        
+        // Prophecy database
+        const prophecies = {
+            aries: {
+                anxious: "Your warrior spirit is just doing jumping jacks in your chest. Today, you'll accidentally intimidate a houseplant into growing faster.",
+                dreamy: "Mars whispers that your dreams are actually battle plans. You'll fall asleep and wake up having reorganized your entire life... in your head.",
+                chaotic: "Your energy today resembles a caffeinated tornado with excellent taste in music. Embrace it - chaos is just creativity having a tantrum.",
+                tired: "Even warriors need naps. Today, you'll discover that horizontal meditation is a valid life choice, especially with snacks nearby.",
+                "in-love": "Your heart is basically a firework show right now. Someone will notice your glow from three time zones away.",
+                confused: "Your brain is playing 4D chess while your heart plays hopscotch. The confusion will lead to your most brilliant idea yet.",
+                excited: "You're vibrating at the frequency of pure possibility. Today, you'll high-five the universe and it will high-five you back.",
+                melancholic: "Your sadness has the depth of ancient wisdom. A random act of kindness will remind you that you're magic in human form.",
+                rebellious: "You're about to revolutionize something completely mundane. Expect to become famous for your unconventional approach to... laundry?",
+                peaceful: "Your inner calm is so powerful, it's making nearby flowers jealous. Use this zen energy to manifest something beautiful.",
+                caffeinated: "You've transcended normal human energy levels. Today, you'll solve problems that don't even exist yet.",
+                mystical: "The universe is sliding secret messages into your coffee foam. Pay attention to the signs - they're everywhere."
+            },
+            taurus: {
+                anxious: "Your roots run deep, beautiful bull. Today, anxiety is just excitement wearing a disguise. Ground yourself with chocolate.",
+                dreamy: "Venus is painting your dreams in shades of honey and gold. You'll daydream something into existence by accident.",
+                chaotic: "Your steady nature is the eye of today's storm. Others will flock to your calm energy like moths to a very cozy flame.",
+                tired: "Rest is your superpower. Today, you'll turn lounging into an art form and inspire others to embrace the sacred nap.",
+                "in-love": "Your heart is blooming like a garden in spring. Someone will fall in love with your laugh today.",
+                confused: "Your practical wisdom is taking a creative detour. The confusion will lead to your most inspired decision yet.",
+                excited: "Your joy has the staying power of mountains. This excitement will build something lasting and beautiful.",
+                melancholic: "Your sensitivity is a gift to the world. Today, your gentle energy will heal someone without you knowing it.",
+                rebellious: "You're about to revolutionize comfort itself. Expect to invent the perfect combination of cozy and productive.",
+                peaceful: "Your serenity is so deep, it's creating ripples of calm in the cosmic pond. Enjoy this zen moment.",
+                caffeinated: "Caffeine + Taurus = unstoppable force meets immovable object. You'll accomplish everything while barely moving.",
+                mystical: "The earth spirits are whispering secrets through your morning coffee. Listen with your heart, not just your ears."
+            },
+            gemini: {
+                anxious: "Your brilliant mind is just having too many conversations at once. Today, you'll accidentally solve someone else's problem while worrying about yours.",
+                dreamy: "Mercury is sending you cosmic text messages through your dreams. You'll wake up with three new ideas and a poem.",
+                chaotic: "Your mental agility is perfectly matched to today's energy. You'll juggle chaos like a professional performer.",
+                tired: "Even your thoughts need a coffee break. Today, you'll discover that mental rest leads to your brightest insights.",
+                "in-love": "Your words are enchanted today. You'll accidentally write love poetry in your grocery list.",
+                confused: "Your curiosity is pulling you in twelve directions at once. The confusion will connect dots you didn't know existed.",
+                excited: "Your enthusiasm is contagious and multiplying. You'll inspire at least three people to try something new today.",
+                melancholic: "Your emotional intelligence is heightened. You'll find beauty in sadness and write something profound about it.",
+                rebellious: "You're about to revolutionize communication itself. Expect to invent a new way of saying something ancient.",
+                peaceful: "Your mind has found its meditation frequency. This rare mental stillness will birth something extraordinary.",
+                caffeinated: "Your thoughts are moving at light speed with perfect clarity. You'll have breakthrough conversations today.",
+                mystical: "The air elementals are sharing secrets through every breeze. Your intuition is operating at cosmic levels."
+            },
+            cancer: {
+                anxious: "Your caring heart is just overflowing with protective energy. Today, you'll worry about someone who secretly adores you for it.",
+                dreamy: "The moon is weaving silver threads through your imagination. Your dreams tonight will predict next week's happiness.",
+                chaotic: "Your emotional wisdom is the compass in today's storm. Others will seek your nurturing energy like ships finding harbor.",
+                tired: "Your shell needs some interior decorating time. Today, self-care isn't selfish - it's revolutionary.",
+                "in-love": "Your heart is glowing like a lighthouse. Someone will be guided home by your love from miles away.",
+                confused: "Your intuition is speaking in riddles today. The confusion will clear when you trust your emotional intelligence.",
+                excited: "Your joy is creating ripples of happiness in your family tree. This excitement will become a cherished memory.",
+                melancholic: "Your emotional depth is an ocean of wisdom. Today, your tears will water something beautiful in your soul.",
+                rebellious: "You're about to revolutionize what it means to care. Expect to rebel through radical self-love and boundary-setting.",
+                peaceful: "Your inner sanctuary is radiating pure comfort. You'll create a healing space just by being yourself.",
+                caffeinated: "Caffeine + Cancer intuition = emotional superpowers. You'll feel everyone's feelings and somehow make them better.",
+                mystical: "The moon spirits are channeling wisdom through your emotional awareness. Trust every feeling - they're cosmic messages."
+            },
+            leo: {
+                anxious: "Your magnificent heart is just rehearsing for its next standing ovation. Today, anxiety will transform into your most radiant performance.",
+                dreamy: "The sun is spotlighting your imagination. Your daydreams are actually previews of your glorious future.",
+                chaotic: "Your natural leadership shines brightest in chaos. You'll turn disorder into a spectacular show everyone wants to watch.",
+                tired: "Even stars need to rest between performances. Today, you'll make recuperation look glamorous and inspiring.",
+                "in-love": "Your heart is putting on the greatest show in the cosmic theater. Someone will fall in love with your dramatic romantic gestures.",
+                confused: "Your creative spirit is experimenting with new forms of brilliance. The confusion will lead to your most original masterpiece.",
+                excited: "Your enthusiasm is literally lighting up rooms. You'll inspire someone to chase their dreams just by being enthusiastically yourself.",
+                melancholic: "Your emotional depth has the power of great art. Today, your sadness will create something beautiful that moves others.",
+                rebellious: "You're about to revolutionize self-expression. Expect to rebel by being so authentically yourself that others remember how to shine.",
+                peaceful: "Your inner radiance is glowing softly today. This gentle energy will warm hearts without overwhelming them.",
+                caffeinated: "Your natural charisma + caffeine = cosmic superstar energy. You'll accidentally become the main character in everyone's day.",
+                mystical: "The sun spirits are amplifying your intuitive gifts. Your psychic abilities are operating at royal levels today."
+            },
+            virgo: {
+                anxious: "Your perfectionist heart is just trying to organize the universe. Today, you'll find peace in the beautiful chaos of being human.",
+                dreamy: "Mercury is sending you detailed blueprints through your dreams. You'll wake up with the solution to something you didn't know was broken.",
+                chaotic: "Your analytical gifts are perfectly designed for untangling today's mess. You'll create order so beautiful it looks like art.",
+                tired: "Your mind needs defragmentation time. Today, rest will reorganize your thoughts into their most brilliant configuration.",
+                "in-love": "Your attention to detail has noticed every perfect imperfection in someone special. Love will bloom in the small gestures.",
+                confused: "Your logical mind is processing new emotional data. The confusion will lead to a perfectly calibrated breakthrough.",
+                excited: "Your enthusiasm has a methodical magic to it. You'll get excited about organizing something and accidentally change your life.",
+                melancholic: "Your emotional precision is a rare gift. Today, your sadness will help you understand something profound about the human condition.",
+                rebellious: "You're about to revolutionize what it means to be helpful. Expect to rebel through radical self-acceptance and gentle boundaries.",
+                peaceful: "Your inner harmony is creating perfect symmetry in your environment. This peace will ripple outward in surprising ways.",
+                caffeinated: "Your attention to detail + caffeine = supernatural productivity. You'll accomplish the impossible with elegant efficiency.",
+                mystical: "The earth elementals are sharing ancient healing wisdom through your practical intuition. Trust your instincts about health and harmony."
+            },
+            libra: {
+                anxious: "Your diplomatic heart is just trying to balance all the world's emotions. Today, you'll find peace by choosing your own harmony first.",
+                dreamy: "Venus is painting your dreams in perfect pastel combinations. Your imagination will inspire someone's artistic breakthrough.",
+                chaotic: "Your natural ability to find balance makes you chaos's favorite dance partner. You'll turn disorder into beautiful symmetry.",
+                tired: "Even the scales of justice need a break. Today, you'll make resting look so elegant that others will want to join you.",
+                "in-love": "Your heart is composing love songs in every language. Someone will fall in love with your romantic idealism and perfect timing.",
+                confused: "Your mind is weighing new possibilities on cosmic scales. The confusion will help you find a perfect balance you didn't know existed.",
+                excited: "Your joy has the grace of a perfect waltz. This excitement will create harmony in unexpected places.",
+                melancholic: "Your emotional aesthetic sense finds beauty in bittersweet moments. Today, your sadness will inspire someone's healing.",
+                rebellious: "You're about to revolutionize fairness itself. Expect to rebel through radical diplomacy and beautiful boundary-setting.",
+                peaceful: "Your inner equilibrium is creating perfect harmony in your relationships. This peace will be contagious in the best way.",
+                caffeinated: "Your natural charm + caffeine = irresistible social magnetism. You'll facilitate connections that change lives.",
+                mystical: "The air spirits are whispering secrets about cosmic justice through your intuitive sense of balance. Trust your psychic equilibrium."
+            },
+            scorpio: {
+                anxious: "Your powerful intensity is just trying to transform the universe overnight. Today, anxiety will alchemize into your greatest insight.",
+                dreamy: "Pluto is sending you mysterious messages through dream symbolism. Your subconscious is processing cosmic secrets right now.",
+                chaotic: "Your transformative energy thrives in chaos. You'll turn today's disorder into tomorrow's revolution.",
+                tired: "Even phoenixes need rest between rebirths. Today, you'll regenerate your power through strategic rest.",
+                "in-love": "Your heart is operating at supernatural intensity levels. Someone will be forever changed by the depth of your emotional truth.",
+                confused: "Your psychic abilities are downloading new levels of understanding. The confusion will clear when you trust your deepest knowing.",
+                excited: "Your excitement has the power to transform reality itself. This energy will catalyze changes you've been unconsciously manifesting.",
+                melancholic: "Your emotional depth has the wisdom of ancient waters. Today, your sadness will wash away something that no longer serves you.",
+                rebellious: "You're about to revolutionize what it means to be authentic. Expect to rebel by being so real that others remember their own truth.",
+                peaceful: "Your inner stillness has the power of deep ocean currents. This rare peace will move mountains subtly but surely.",
+                caffeinated: "Your natural intensity + caffeine = otherworldly perception. You'll see through every illusion and speak only truth today.",
+                mystical: "The underworld spirits are sharing ancient mysteries through your heightened intuition. Your psychic gifts are at peak power."
+            },
+            sagittarius: {
+                anxious: "Your adventurous spirit is just eager to explore new emotional territories. Today, anxiety will guide you to an unexpected discovery.",
+                dreamy: "Jupiter is expanding your imagination beyond known boundaries. Your dreams will contain maps to places that don't exist yet.",
+                chaotic: "Your wandering energy loves a good plot twist. You'll turn today's chaos into tomorrow's great adventure story.",
+                tired: "Even arrows need time to be restrung. Today, you'll find that rest is just preparation for your next magnificent journey.",
+                "in-love": "Your heart has passport stamps from dimensions of pure love. Someone will want to travel through life with your optimistic spirit.",
+                confused: "Your philosophical mind is exploring new territories of understanding. The confusion will lead to wisdom you'll share for years.",
+                excited: "Your enthusiasm could power spaceships. This excitement will launch you toward horizons you didn't know existed.",
+                melancholic: "Your emotional wanderlust seeks meaning in melancholy. Today, your sadness will teach you something profound about the human journey.",
+                rebellious: "You're about to revolutionize what freedom means. Expect to rebel through radical honesty and fearless authenticity.",
+                peaceful: "Your inner compass has found true north. This peace will guide others who have lost their way.",
+                caffeinated: "Your natural optimism + caffeine = unlimited possibility energy. You'll inspire everyone to believe in their dreams today.",
+                mystical: "The cosmic winds are carrying messages from distant star systems through your expansive intuition. Your third eye is telescope-sharp."
+            },
+            capricorn: {
+                anxious: "Your ambitious heart is just scaling the mountains of possibility. Today, anxiety will reveal the peak you're meant to climb.",
+                dreamy: "Saturn is structuring your dreams into achievable magic. Your imagination is building castles that could actually exist.",
+                chaotic: "Your steady determination is chaos's perfect antidote. You'll build something lasting from today's scattered pieces.",
+                tired: "Even CEOs of the universe need coffee breaks. Today, strategic rest will be your most productive activity.",
+                "in-love": "Your heart is investing in forever. Someone will be amazed by your ability to love with both passion and practicality.",
+                confused: "Your practical wisdom is processing new information about success. The confusion will clarify into your most strategic insight yet.",
+                excited: "Your excitement has the foundation of mountains and the reach of skyscrapers. This energy will build something magnificent.",
+                melancholic: "Your emotional discipline finds purpose in every feeling. Today, your sadness will teach you something valuable about resilience.",
+                rebellious: "You're about to revolutionize what achievement means. Expect to rebel through radical self-care and redefined success.",
+                peaceful: "Your inner authority radiates quiet confidence. This peace will inspire others to trust in their own steady progress.",
+                caffeinated: "Your natural leadership + caffeine = unstoppable goal-crushing energy. You'll accomplish three impossible things before lunch.",
+                mystical: "The mountain spirits are sharing ancient wisdom about patience and persistence through your grounded intuition. Trust your timeline."
+            },
+            aquarius: {
+                anxious: "Your innovative mind is just downloading the future faster than usual. Today, anxiety will spark your most revolutionary idea.",
+                dreamy: "Uranus is beaming otherworldly visions directly into your consciousness. Your dreams will contain blueprints for tomorrow's reality.",
+                chaotic: "Your unique energy signature perfectly matches today's frequency. You'll turn chaos into the most beautiful kind of organized rebellion.",
+                tired: "Even revolutionaries need to recharge their cosmic batteries. Today, rest will upload new levels of humanitarian inspiration.",
+                "in-love": "Your heart is broadcasting on frequencies only special people can receive. Someone will love you for your beautiful weirdness.",
+                confused: "Your visionary mind is processing information from parallel dimensions. The confusion will resolve into clarity that changes everything.",
+                excited: "Your excitement operates on wavelengths that inspire collective awakening. This energy will spark a small revolution somewhere.",
+                melancholic: "Your emotional intelligence carries the weight of collective healing. Today, your sadness will transform into compassion for all humanity.",
+                rebellious: "You're about to revolutionize revolution itself. Expect to rebel through radical love and innovative solutions no one saw coming.",
+                peaceful: "Your inner frequency creates harmony in digital and cosmic realms. This peace will upgrade everyone's spiritual WiFi.",
+                caffeinated: "Your natural genius + caffeine = breakthrough innovation energy. You'll invent something the world didn't know it needed.",
+                mystical: "The star beings are transmitting advanced wisdom through your activated consciousness. Your intuition is receiving cosmic downloads."
+            },
+            pisces: {
+                anxious: "Your sensitive soul is just feeling all the ocean's emotions at once. Today, anxiety will dissolve into compassionate understanding.",
+                dreamy: "Neptune is painting masterpieces directly onto your consciousness. Your dreams will be so beautiful they'll make you cry happy tears.",
+                chaotic: "Your intuitive nature swims gracefully through chaos. You'll find the hidden currents that lead to peaceful waters.",
+                tired: "Even mermaids need to float peacefully sometimes. Today, rest will restore your connection to infinite cosmic love.",
+                "in-love": "Your heart is an ocean of pure poetry. Someone will drown willingly in the depths of your romantic imagination.",
+                confused: "Your psychic abilities are receiving signals from multiple dimensions. The confusion will clear when you trust your first instinct.",
+                excited: "Your joy moves like gentle waves, touching every shore. This excitement will create ripples of inspiration across time and space.",
+                melancholic: "Your emotional artistry finds profound beauty in sadness. Today, your tears will water seeds of healing in someone's heart.",
+                rebellious: "You're about to revolutionize what it means to be sensitive. Expect to rebel through radical empathy and boundary-setting magic.",
+                peaceful: "Your inner ocean has reached perfect stillness. This peace will heal everyone who comes near your energy.",
+                caffeinated: "Your natural intuition + caffeine = supernatural empathy levels. You'll feel what everyone needs and somehow provide it.",
+                mystical: "The water spirits are sharing ancient mysteries through your heightened psychic abilities. Every emotion is a cosmic message today."
+            }
+        };
+        
+        function revealProphecy() {
+            const zodiacSign = document.getElementById('zodiac').value;
+            const emotion = document.getElementById('emotion').value;
+            const prophecyTextElement = document.getElementById('prophecyText');
+            const prophecyContainer = document.getElementById('prophecyContainer');
+
+            if (zodiacSign && emotion) {
+                const prophecy = prophecies[zodiacSign][emotion];
+                prophecyTextElement.textContent = prophecy;
+                prophecyContainer.classList.add('show');
+            } else {
+                prophecyTextElement.textContent = "Please select both your celestial sign and current emotional frequency to reveal your prophecy.";
+                prophecyContainer.classList.remove('show');
+            }
+        }
+
+        // Initialize stars
+        createStars();
+    </script>
+</body>
+</html>
