@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🪦 Cemetery of Underrated Movies</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Creepster&family=Nosifer&family=Griffy:wght@400&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 50%, #16213e 100%);
+            min-height: 100vh;
+            font-family: 'Griffy', cursive;
+            color: #e0e0e0;
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        /* Animated fog effect */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.05) 0%, transparent 50%);
+            animation: drift 20s ease-in-out infinite alternate;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        @keyframes drift {
+            0% { transform: translateX(-10px) translateY(-10px); }
+            100% { transform: translateX(10px) translateY(10px); }
+        }
+        
+        /* Twinkling stars */
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 3s ease-in-out infinite alternate;
+        }
+        
+        @keyframes twinkle {
+            0% { opacity: 0.3; transform: scale(1); }
+            100% { opacity: 1; transform: scale(1.2); }
+        }
+        
+        .container {
+            position: relative;
+            z-index: 2;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+            padding: 40px 20px;
+        }
+        
+        .title {
+            font-family: 'Nosifer', cursive;
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            color: #ff6b6b;
+            text-shadow: 0 0 20px rgba(255, 107, 107, 0.5), 
+                         0 0 40px rgba(255, 107, 107, 0.3);
+            margin-bottom: 20px;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+        
+        @keyframes glow {
+            0% { text-shadow: 0 0 20px rgba(255, 107, 107, 0.5), 0 0 40px rgba(255, 107, 107, 0.3); }
+            100% { text-shadow: 0 0 30px rgba(255, 107, 107, 0.8), 0 0 60px rgba(255, 107, 107, 0.5); }
+        }
+        
+        .subtitle {
+            font-size: 1.4rem;
+            color: #a0a0a0;
+            margin-bottom: 30px;
+            font-style: italic;
+        }
+        
+        .description {
+            font-size: 1.1rem;
+            color: #c0c0c0;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+        
+        .cemetery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+        
+        .tombstone {
+            background: linear-gradient(145deg, #2a2a2a, #1a1a1a);
+            border-radius: 20px 20px 0 0;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5),
+                        inset 0 2px 10px rgba(255, 255, 255, 0.1);
+            border: 2px solid #444;
+            position: relative;
+            transform: perspective(1000px) rotateX(5deg);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .tombstone:hover {
+            transform: perspective(1000px) rotateX(0deg) translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7),
+                        inset 0 2px 10px rgba(255, 255, 255, 0.2);
+        }
+        
+        .tombstone::before {
+            content: '🪦';
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 2rem;
+            background: linear-gradient(145deg, #2a2a2a, #1a1a1a);
+            padding: 5px 15px;
+            border-radius: 10px;
+            border: 2px solid #444;
+        }
+        
+        .movie-title {
+            font-family: 'Creepster', cursive;
+            font-size: 1.8rem;
+            color: #ff6b6b;
+            text-align: center;
+            margin-bottom: 20px;
+            text-shadow: 0 0 10px rgba(255, 107, 107, 0.3);
+        }
+        
+        .candle {
+            font-size: 2rem;
+            text-align: center;
+            margin-bottom: 15px;
+            animation: flicker 2s ease-in-out infinite alternate;
+        }
+        
+        @keyframes flicker {
+            0% { opacity: 0.8; transform: scale(1); }
+            100% { opacity: 1; transform: scale(1.1); }
+        }
+        
+        .cause-of-death {
+            background: rgba(255, 107, 107, 0.1);
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 4px solid #ff6b6b;
+            margin-bottom: 20px;
+        }
+        
+        .cause-label {
+            font-size: 0.9rem;
+            color: #ff6b6b;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .cause-text {
+            font-size: 1rem;
+            color: #e0e0e0;
+            font-style: italic;
+        }
+        
+        .tribute {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .tribute-label {
+            font-size: 0.9rem;
+            color: #a0a0a0;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .tribute-text {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #d0d0d0;
+            font-style: italic;
+        }
+        
+        .revive-btn {
+            background: linear-gradient(45deg, #4ecdc4, #44a08d);
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            color: white;
+            font-family: 'Griffy', cursive;
+            font-size: 1.1rem;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(78, 205, 196, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .revive-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(78, 205, 196, 0.5);
+        }
+        
+        .revive-btn:active {
+            transform: translateY(0);
+        }
+        
+        .revive-btn::before {
+            content: '👻';
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 80px;
+            padding: 40px 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .footer-text {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .cemetery {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            
+            .tombstone {
+                margin: 0 10px;
+            }
+            
+            .title {
+                font-size: 2.5rem;
+            }
+        }
+        
+        /* Animation for revived movies */
+        .revived {
+            animation: resurrect 1s ease-out;
+            border-color: #4ecdc4;
+            box-shadow: 0 0 30px rgba(78, 205, 196, 0.5);
+        }
+        
+        @keyframes resurrect {
+            0% { transform: perspective(1000px) rotateX(5deg) translateY(0); }
+            50% { transform: perspective(1000px) rotateX(-10deg) translateY(-20px) scale(1.05); }
+            100% { transform: perspective(1000px) rotateX(0deg) translateY(-10px); }
+        }
+    </style>
+</head>
+<body>
+    <div class="stars"></div>
+    
+    <div class="container">
+        <header class="header">
+            <h1 class="title">Cemetery of Underrated Movies</h1>
+            <p class="subtitle">"Where forgotten gems rest in digital peace"</p>
+            <p class="description">
+                Welcome to our solemn tribute to the cinematic masterpieces that were unjustly buried by harsh critics, 
+                poor marketing, or simply being ahead of their time. Each tombstone tells the tragic tale of a movie 
+                that deserved so much more.
+            </p>
+        </header>
+        
+        <div class="cemetery">
+            <!-- Movie 1: The Iron Giant -->
+            <div class="tombstone">
+                <div class="candle">🕯️</div>
+                <h2 class="movie-title">The Iron Giant</h2>
+                <div class="cause-of-death">
+                    <div class="cause-label">⚰️ Cause of Death:</div>
+                    <div class="cause-text">"Died from Warner Bros' criminal lack of marketing"</div>
+                </div>
+                <div class="tribute">
+                    <div class="tribute-label">💐 Poetic Tribute:</div>
+                    <div class="tribute-text">
+                        "A gentle giant of steel and heart,<br>
+                        You taught us souls and machines aren't apart.<br>
+                        Though box office numbers made you fall,<br>
+                        In our hearts, you're the greatest of all."
+                    </div>
+                </div>
+                <button class="revive-btn" onclick="reviveMovie(this)">Revive This Masterpiece</button>
+            </div>
+            
+            <!-- Movie 2: Blade Runner 2049 -->
+            <div class="tombstone">
+                <div class="candle">🕯️</div>
+                <h2 class="movie-title">Blade Runner 2049</h2>
+                <div class="cause-of-death">
+                    <div class="cause-label">⚰️ Cause of Death:</div>
+                    <div class="cause-text">"Suffocated by audiences who preferred explosions over philosophy"</div>
+                </div>
+                <div class="tribute">
+                    <div class="tribute-label">💐 Poetic Tribute:</div>
+                    <div class="tribute-text">
+                        "In neon rain and synthetic dreams,<br>
+                        You painted futures torn at seams.<br>
+                        A visual poem, profound and deep,<br>
+                        Now in this cemetery you sleep."
+                    </div>
+                </div>
+                <button class="revive-btn" onclick="reviveMovie(this)">Revive This Masterpiece</button>
+            </div>
+            
+            <!-- Movie 3: The Shawshank Redemption -->
+            <div class="tombstone">
+                <div class="candle">🕯️</div>
+                <h2 class="movie-title">The Shawshank Redemption</h2>
+                <div class="cause-of-death">
+                    <div class="cause-label">⚰️ Cause of Death:</div>
+                    <div class="cause-text">"Murdered by Forrest Gump's Oscar sweep in 1994"</div>
+                </div>
+                <div class="tribute">
+                    <div class="tribute-label">💐 Poetic Tribute:</div>
+                    <div class="tribute-text">
+                        "Behind bars of stone and critics' doubt,<br>
+                        Your hope refused to fade throughout.<br>
+                        Now crowned the king of IMDb's throne,<br>
+                        Redemption came, though years had flown."
+                    </div>
+                </div>
+                <button class="revive-btn" onclick="reviveMovie(this)">Revive This Masterpiece</button>
+            </div>
+            
+            <!-- Movie 4: Scott Pilgrim vs. The World -->
+            <div class="tombstone">
+                <div class="candle">🕯️</div>
+                <h2 class="movie-title">Scott Pilgrim vs. The World</h2>
+                <div class="cause-of-death">
+                    <div class="cause-label">⚰️ Cause of Death:</div>
+                    <div class="cause-text">"Slain by audiences who didn't get the video game references"</div>
+                </div>
+                <div class="tribute">
+                    <div class="tribute-label">💐 Poetic Tribute:</div>
+                    <div class="tribute-text">
+                        "With pixels bright and battles fierce,<br>
+                        Your comic book soul did hearts pierce.<br>
+                        Too cool for theaters, too smart for most,<br>
+                        Now you're our beloved cult movie ghost."
+                    </div>
+                </div>
+                <button class="revive-btn" onclick="reviveMovie(this)">Revive This Masterpiece</button>
+            </div>
+            
+            <!-- Movie 5: Children of Men -->
+            <div class="tombstone">
+                <div class="candle">🕯️</div>
+                <h2 class="movie-title">Children of Men</h2>
+                <div class="cause-of-death">
+                    <div class="cause-label">⚰️ Cause of Death:</div>
+                    <div class="cause-text">"Died from being too depressingly beautiful for mainstream tastes"</div>
+                </div>
+                <div class="tribute">
+                    <div class="tribute-label">💐 Poetic Tribute:</div>
+                    <div class="tribute-text">
+                        "In a world without tomorrow's song,<br>
+                        You showed us hope when all went wrong.<br>
+                        One perfect shot, one crying child,<br>
+                        Your genius was subtle, raw, and wild."
+                    </div>
+                </div>
+                <button class="revive-btn" onclick="reviveMovie(this)">Revive This Masterpiece</button>
+            </div>
+            
+            <!-- Movie 6: The Nice Guys -->
+            <div class="tombstone">
+                <div class="candle">🕯️</div>
+                <h2 class="movie-title">The Nice Guys</h2>
+                <div class="cause-of-death">
+                    <div class="cause-label">⚰️ Cause of Death:</div>
+                    <div class="cause-text">"Killed by superhero movie fatigue... wait, that doesn't make sense"</div>
+                </div>
+                <div class="tribute">
+                    <div class="tribute-label">💐 Poetic Tribute:</div>
+                    <div class="tribute-text">
+                        "With wit so sharp and chemistry gold,<br>
+                        Your buddy cop tale should have been told<br>
+                        To packed theaters across the land,<br>
+                        But fate dealt you a losing hand."
+                    </div>
+                </div>
+                <button class="revive-btn" onclick="reviveMovie(this)">Revive This Masterpiece</button>
+            </div>
+        </div>
+        
+        <footer class="footer">
+            <p class="footer-text">
+                "In memory of all the movies that deserved better. May they find new life in the streaming afterlife." 💀
+            </p>
+        </footer>
+    </div>
+    
+    <script>
+        // Create twinkling stars
+        function createStars() {
+            const starsContainer = document.querySelector('.stars');
+            for (let i = 0; i < 100; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.animationDelay = Math.random() * 3 + 's';
+                star.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                starsContainer.appendChild(star);
+            }
+        }
+        
+        // Revive movie function
+        function reviveMovie(button) {
+            const tombstone = button.closest('.tombstone');
+            const movieTitle = tombstone.querySelector('.movie-title').textContent;
+            
+            // Add revived animation
+            tombstone.classList.add('revived');
+            
+            // Change button text temporarily
+            const originalText = button.innerHTML;
+            button.innerHTML = '✨ REVIVED! ✨';
+            button.style.background = 'linear-gradient(45deg, #ff6b6b, #ffa500)';
+            
+            // Show resurrection message
+            showResurrectionMessage(movieTitle);
+            
+            // Reset after animation
+            setTimeout(() => {
+                tombstone.classList.remove('revived');
+                button.innerHTML = originalText;
+                button.style.background = 'linear-gradient(45deg, #4ecdc4, #44a08d)';
+            }, 3000);
+        }
+        
+        // Show resurrection message
+        function showResurrectionMessage(movieTitle) {
+            const message = document.createElement('div');
+            message.style.cssText = `
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background: linear-gradient(45deg, #4ecdc4, #44a08d);
+                color: white;
+                padding: 30px 50px;
+                border-radius: 20px;
+                font-family: 'Creepster', cursive;
+                font-size: 1.5rem;
+                text-align: center;
+                box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7);
+                z-index: 1000;
+                animation: fadeInOut 3s ease-in-out;
+            `;
+            
+            message.innerHTML = `
+                👻 "${movieTitle}" has been REVIVED! 👻<br>
+                <small style="font-family: 'Griffy', cursive; font-size: 1rem; margin-top: 10px; display: block;">
+                    Go watch it again... if you dare!
+                </small>
+            `;
+            
+            // Add fade animation
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes fadeInOut {
+                    0% { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
+                    20% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+                    80% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+                    100% { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
+                }
+            `;
+            document.head.appendChild(style);
+            
+            document.body.appendChild(message);
+            
+            setTimeout(() => {
+                document.body.removeChild(message);
+                document.head.removeChild(style);
+            }, 3000);
+        }
+        
+        // Initialize stars when page loads
+        document.addEventListener('DOMContentLoaded', createStars);
+        
+        // Add some spooky mouse effects
+        document.addEventListener('mousemove', (e) => {
+            if (Math.random() < 0.001) { // Very rare ghost appearance
+                createGhost(e.clientX, e.clientY);
+            }
+        });
+        
+        function createGhost(x, y) {
+            const ghost = document.createElement('div');
+            ghost.textContent = '👻';
+            ghost.style.cssText = `
+                position: fixed;
+                left: ${x}px;
+                top: ${y}px;
+                font-size: 2rem;
+                pointer-events: none;
+                z-index: 1000;
+                animation: ghostFloat 2s ease-out forwards;
+            `;
+            
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes ghostFloat {
+                    0% { opacity: 0; transform: translateY(0); }
+                    50% { opacity: 1; }
+                    100% { opacity: 0; transform: translateY(-100px); }
+                }
+            `;
+            document.head.appendChild(style);
+            
+            document.body.appendChild(ghost);
+            
+            setTimeout(() => {
+                document.body.removeChild(ghost);
+                document.head.removeChild(style);
+            }, 2000);
+        }
+    </script>
+</body>
+</html>

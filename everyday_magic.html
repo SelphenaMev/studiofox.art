@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Guide to Everyday Magic ✨</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Crimson+Text:ital,wght@0,400;1,400&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Crimson Text', serif;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a3a 50%, #2d1b3d 100%);
+            color: #f0e6ff;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: #fff;
+            border-radius: 50%;
+            animation: twinkle 3s infinite ease-in-out;
+        }
+        
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+        
+        .container {
+            position: relative;
+            z-index: 2;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+            animation: fadeInDown 1s ease-out;
+        }
+        
+        .title {
+            font-family: 'Cinzel', serif;
+            font-size: 3.5rem;
+            font-weight: 600;
+            background: linear-gradient(45deg, #ffd700, #ffb347, #ff69b4, #dda0dd);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 30px rgba(255, 215, 0, 0.3);
+        }
+        
+        .subtitle {
+            font-size: 1.3rem;
+            color: #c9b3ff;
+            font-style: italic;
+            opacity: 0.9;
+        }
+        
+        .spells-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .spell-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 2rem;
+            transition: all 0.4s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .spell-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.5s;
+        }
+        
+        .spell-card:hover::before {
+            left: 100%;
+        }
+        
+        .spell-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: rgba(255, 215, 0, 0.4);
+            box-shadow: 0 20px 40px rgba(255, 215, 0, 0.1);
+        }
+        
+        .spell-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: block;
+            text-align: center;
+            filter: drop-shadow(0 0 10px currentColor);
+        }
+        
+        .spell-title {
+            font-family: 'Cinzel', serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #ffd700;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        
+        .spell-description {
+            color: #e6d7ff;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+        
+        .spell-steps {
+            display: none;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        .spell-steps.active {
+            display: block;
+        }
+        
+        .step {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+            padding: 0.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .step:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateX(5px);
+        }
+        
+        .step-number {
+            background: linear-gradient(45deg, #ffd700, #ffb347);
+            color: #1a1a3a;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.9rem;
+            margin-right: 1rem;
+            flex-shrink: 0;
+        }
+        
+        .step-text {
+            flex: 1;
+            color: #d4c4ff;
+        }
+        
+        .magic-wand {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 1.5rem;
+            color: rgba(255, 215, 0, 0.6);
+            transition: all 0.3s ease;
+        }
+        
+        .spell-card:hover .magic-wand {
+            transform: rotate(15deg) scale(1.2);
+            color: #ffd700;
+        }
+        
+        .expand-btn {
+            background: linear-gradient(45deg, #6a5acd, #9370db);
+            border: none;
+            color: white;
+            padding: 0.7rem 1.5rem;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-family: 'Cinzel', serif;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-top: 1rem;
+        }
+        
+        .expand-btn:hover {
+            background: linear-gradient(45deg, #8a2be2, #da70d6);
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(138, 43, 226, 0.3);
+        }
+        
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .spell-card {
+            animation: fadeInUp 0.8s ease-out forwards;
+            opacity: 0;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .ritual-tip {
+            background: rgba(255, 215, 0, 0.1);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 15px;
+            padding: 1rem;
+            margin-top: 1rem;
+            color: #fff3cd;
+            font-style: italic;
+        }
+        
+        .floating-elements {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        .floating-symbol {
+            position: absolute;
+            font-size: 2rem;
+            opacity: 0.1;
+            animation: float 8s infinite ease-in-out;
+        }
+        
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+            25% {
+                transform: translateY(-20px) rotate(90deg);
+            }
+            50% {
+                transform: translateY(-40px) rotate(180deg);
+            }
+            75% {
+                transform: translateY(-20px) rotate(270deg);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .title {
+                font-size: 2.5rem;
+            }
+            
+            .spells-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .container {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="stars" id="stars"></div>
+    <div class="floating-elements" id="floatingElements"></div>
+    
+    <div class="container">
+        <header class="header">
+            <h1 class="title">✨ The Guide to Everyday Magic ✨</h1>
+            <p class="subtitle">Transform ordinary moments into extraordinary rituals</p>
+        </header>
+        
+        <div class="spells-grid">
+            <div class="spell-card" style="animation-delay: 0.1s;">
+                <div class="magic-wand">🪄</div>
+                <div class="spell-icon">☀️</div>
+                <h3 class="spell-title">Morning Awakening Ritual</h3>
+                <p class="spell-description">Begin each day by summoning positive energy and clarity through the sacred trinity of coffee, light, and music.</p>
+                <button class="expand-btn" onclick="toggleSpell(this)">Reveal the Magic</button>
+                <div class="spell-steps">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-text">Light a candle or turn on warm, soft lighting before touching any device</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-text">Brew your coffee mindfully, inhaling the aroma as you wait</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div class="step-text">Play your sacred morning playlist (3-5 songs that make you feel alive)</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">4</div>
+                        <div class="step-text">Hold your warm cup and speak one intention for the day aloud</div>
+                    </div>
+                    <div class="ritual-tip">
+                        💫 <strong>Pro Tip:</strong> Keep the same playlist for 21 days to create a powerful morning anchor
+                    </div>
+                </div>
+            </div>
+            
+            <div class="spell-card" style="animation-delay: 0.2s;">
+                <div class="magic-wand">🪄</div>
+                <div class="spell-icon">💕</div>
+                <h3 class="spell-title">Longing Protection Charm</h3>
+                <p class="spell-description">A powerful amulet to carry love close and transform missing someone into feeling connected across any distance.</p>
+                <button class="expand-btn" onclick="toggleSpell(this)">Reveal the Magic</button>
+                <div class="spell-steps">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-text">Choose a piece of their clothing that smells like them</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-text">Hold it close and breathe deeply three times</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div class="step-text">Wear it when the longing feels strongest</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">4</div>
+                        <div class="step-text">Send them a photo of you wearing it with a heart emoji</div>
+                    </div>
+                    <div class="ritual-tip">
+                        💫 <strong>Love Magic:</strong> This works both ways - they'll feel the connection too when they see the photo
+                    </div>
+                </div>
+            </div>
+            
+            <div class="spell-card" style="animation-delay: 0.3s;">
+                <div class="magic-wand">🪄</div>
+                <div class="spell-icon">🛁</div>
+                <h3 class="spell-title">Comfort Sanctuary Spell</h3>
+                <p class="spell-description">Create an instant portal of peace using the ancient arts of cinema magic and blanket enchantment.</p>
+                <button class="expand-btn" onclick="toggleSpell(this)">Reveal the Magic</button>
+                <div class="spell-steps">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-text">Choose a movie that makes your soul happy (not one that makes you cry)</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-text">Create a blanket fort or wrap yourself in the softest blanket you own</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div class="step-text">Dim all lights except for the screen glow</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">4</div>
+                        <div class="step-text">Before pressing play, declare: "I am safe, I am loved, I am home"</div>
+                    </div>
+                    <div class="ritual-tip">
+                        💫 <strong>Sanctuary Magic:</strong> Your blanket becomes a protective shield that holds only good vibes
+                    </div>
+                </div>
+            </div>
+            
+            <div class="spell-card" style="animation-delay: 0.4s;">
+                <div class="magic-wand">🪄</div>
+                <div class="spell-icon">🌙</div>
+                <h3 class="spell-title">Dream Weaving Ritual</h3>
+                <p class="spell-description">Program beautiful dreams and release the day's worries through sacred nighttime preparation.</p>
+                <button class="expand-btn" onclick="toggleSpell(this)">Reveal the Magic</button>
+                <div class="spell-steps">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-text">Write down 3 things you're grateful for from today on paper</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-text">Place the paper under your pillow</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div class="step-text">Spray lavender or vanilla on your pillowcase</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">4</div>
+                        <div class="step-text">As you close your eyes, imagine tomorrow as your best possible day</div>
+                    </div>
+                    <div class="ritual-tip">
+                        💫 <strong>Dream Magic:</strong> Your subconscious mind works all night to make your visualization come true
+                    </div>
+                </div>
+            </div>
+            
+            <div class="spell-card" style="animation-delay: 0.5s;">
+                <div class="magic-wand">🪄</div>
+                <div class="spell-icon">🍃</div>
+                <h3 class="spell-title">Energy Cleansing Shower</h3>
+                <p class="spell-description">Wash away negative energy and emerge renewed using the purifying power of water and intention.</p>
+                <button class="expand-btn" onclick="toggleSpell(this)">Reveal the Magic</button>
+                <div class="spell-steps">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-text">Before entering, set the intention to wash away anything that doesn't serve you</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-text">Use eucalyptus or mint shower gel for extra cleansing power</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div class="step-text">Imagine the water carrying away stress, doubt, and negativity down the drain</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">4</div>
+                        <div class="step-text">End with cool water for 10 seconds while affirming "I am renewed"</div>
+                    </div>
+                    <div class="ritual-tip">
+                        💫 <strong>Cleansing Magic:</strong> The physical act of washing becomes a powerful metaphor your mind accepts
+                    </div>
+                </div>
+            </div>
+            
+            <div class="spell-card" style="animation-delay: 0.6s;">
+                <div class="magic-wand">🪄</div>
+                <div class="spell-icon">📱</div>
+                <h3 class="spell-title">Digital Boundary Charm</h3>
+                <p class="spell-description">Protect your energy from digital overwhelm and create sacred technology-free spaces.</p>
+                <button class="expand-btn" onclick="toggleSpell(this)">Reveal the Magic</button>
+                <div class="spell-steps">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-text">Designate your bedroom as a phone-free sanctuary after 9 PM</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-text">Place your phone in another room and say "I choose peace over pixels"</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div class="step-text">Replace scrolling time with a physical book or journal</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">4</div>
+                        <div class="step-text">Before sleep, mentally send love to everyone instead of checking messages</div>
+                    </div>
+                    <div class="ritual-tip">
+                        💫 <strong>Boundary Magic:</strong> Your energy becomes your own again when you control your digital diet
+                    </div>
+                </div>
+            </div>
+            
+            <div class="spell-card" style="animation-delay: 0.7s;">
+                <div class="magic-wand">🪄</div>
+                <div class="spell-icon">🌸</div>
+                <h3 class="spell-title">Self-Love Mirror Spell</h3>
+                <p class="spell-description">Transform your relationship with your reflection using daily mirror magic and affirmation power.</p>
+                <button class="expand-btn" onclick="toggleSpell(this)">Reveal the Magic</button>
+                <div class="spell-steps">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-text">Look directly into your own eyes in the mirror for 30 seconds</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-text">Say "Hello, beautiful soul" out loud</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div class="step-text">Find one thing you genuinely appreciate about yourself today</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">4</div>
+                        <div class="step-text">Smile at yourself before walking away</div>
+                    </div>
+                    <div class="ritual-tip">
+                        💫 <strong>Self-Love Magic:</strong> Your relationship with yourself sets the template for all other relationships
+                    </div>
+                </div>
+            </div>
+            
+            <div class="spell-card" style="animation-delay: 0.8s;">
+                <div class="magic-wand">🪄</div>
+                <div class="spell-icon">🍯</div>
+                <h3 class="spell-title">Abundance Tea Ceremony</h3>
+                <p class="spell-description">Attract prosperity and gratitude through the mindful ritual of tea preparation and intention setting.</p>
+                <button class="expand-btn" onclick="toggleSpell(this)">Reveal the Magic</button>
+                <div class="spell-steps">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-text">Choose green tea (for growth) or chamomile (for peace)</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-text">While water boils, think of 5 things you already have that you're grateful for</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div class="step-text">Add honey while saying "Sweet abundance flows to me"</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">4</div>
+                        <div class="step-text">Sip slowly and visualize your dreams manifesting</div>
+                    </div>
+                    <div class="ritual-tip">
+                        💫 <strong>Abundance Magic:</strong> Gratitude for what you have creates space for more blessings to arrive
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Create twinkling stars
+        function createStars() {
+            const starsContainer = document.getElementById('stars');
+            for (let i = 0; i < 100; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.animationDelay = Math.random() * 3 + 's';
+                starsContainer.appendChild(star);
+            }
+        }
+        
+        // Create floating magical symbols
+        function createFloatingElements() {
+            const container = document.getElementById('floatingElements');
+            const symbols = ['✨', '🌟', '💫', '⭐', '🔮', '🌙', '☄️'];
+            
+            for (let i = 0; i < 15; i++) {
+                const element = document.createElement('div');
+                element.className = 'floating-symbol';
+                element.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+                element.style.left = Math.random() * 100 + '%';
+                element.style.top = Math.random() * 100 + '%';
+                element.style.animationDelay = Math.random() * 8 + 's';
+                element.style.animationDuration = (8 + Math.random() * 4) + 's';
+                container.appendChild(element);
+            }
+        }
+        
+        // Toggle spell details
+        function toggleSpell(button) {
+            const card = button.closest('.spell-card');
+            const steps = card.querySelector('.spell-steps');
+            
+            if (steps.classList.contains('active')) {
+                steps.classList.remove('active');
+                button.textContent = 'Reveal the Magic';
+                button.style.background = 'linear-gradient(45deg, #6a5acd, #9370db)';
+            } else {
+                steps.classList.add('active');
+                button.textContent = 'Hide the Magic';
+                button.style.background = 'linear-gradient(45deg, #ff6b6b, #ff8e53)';
+            }
+        }
+        
+        // Initialize magical elements
+        document.addEventListener('DOMContentLoaded', function() {
+            createStars();
+            createFloatingElements();
+            
+            // Animate spell cards on scroll
+            const cards = document.querySelectorAll('.spell-card');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            cards.forEach(card => {
+                observer.observe(card);
+            });
+        });
+        
+        // Add sparkle effect on card hover
+        document.querySelectorAll('.spell-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                createSparkles(this);
+            });
+        });
+        
+        function createSparkles(element) {
+            for (let i = 0; i < 5; i++) {
+                const sparkle = document.createElement('div');
+                sparkle.innerHTML = '✨';
+                sparkle.style.position = 'absolute';
+                sparkle.style.pointerEvents = 'none';
+                sparkle.style.fontSize = '1rem';
+                sparkle.style.color = '#ffd700';
+                sparkle.style.left = Math.random() * element.offsetWidth + 'px';
+                sparkle.style.top = Math.random() * element.offsetHeight + 'px';
+                sparkle.style.animation = 'sparkleFloat 1s ease-out forwards';
+                
+                element.appendChild(sparkle);
+                
+                setTimeout(() => {
+                    sparkle.remove();
+                }, 1000);
+            }
+        }
+        
+        // Add sparkle animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes sparkleFloat {
+                0% {
+                    opacity: 1;
+                    transform: translateY(0) scale(0);
+                }
+                50% {
+                    opacity: 1;
+                    transform: translateY(-20px) scale(1);
+                }
+                100% {
+                    opacity: 0;
+                    transform: translateY(-40px) scale(0);
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
